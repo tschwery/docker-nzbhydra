@@ -5,7 +5,7 @@ MAINTAINER Thomas Schwery <thomas@inf3.ch>
 RUN apk add --no-cache --virtual .fetch-deps \
         python2 py2-lxml tar curl
 
-ENV HYDRAVERSION 0.2.218
+ENV HYDRAVERSION 0.2.226
 
 ENV USERID 1000
 ENV USERNAME nzbhydra
