@@ -20,4 +20,4 @@ RUN curl -SL https://github.com/theotherp/nzbhydra/archive/${HYDRAVERSION}.tar.g
 
 USER nzbhydra
 
-CMD ["/usr/bin/python2", "/nzbhydra/nzbhydra.py", "--nobrowser"]
+ENTRYPOINT ["/usr/bin/python2", "/nzbhydra/nzbhydra.py", "--nobrowser"]
