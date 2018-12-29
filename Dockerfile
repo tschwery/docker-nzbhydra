@@ -3,9 +3,9 @@ MAINTAINER Thomas Schwery <thomas@inf3.ch>
 
 ## Update base image and install prerequisites
 RUN apk add --no-cache --virtual .fetch-deps \
-        python2 py2-lxml tar curl
+        unzip curl openjdk8
 
-ENV HYDRAVERSION 0.2.226
+ENV HYDRAVERSION 2.1.5
 
 ENV USERID 1000
 ENV USERNAME nzbhydra
@@ -13,11 +13,14 @@ ENV USERNAME nzbhydra
 RUN addgroup -g ${USERID} -S ${USERNAME} \
     && adduser -S -G ${USERNAME} -u ${USERID} -s /bin/sh -h /home/${USERNAME} ${USERNAME}
 
-RUN curl -SL https://github.com/theotherp/nzbhydra/archive/${HYDRAVERSION}.tar.gz \
-    | tar zx \
-    && mv /nzbhydra-${HYDRAVERSION} /nzbhydra \
-    && chown ${USERID}:${USERID} /nzbhydra -R
+RUN curl -SOL https://github.com/theotherp/nzbhydra2/releases/download/v${HYDRAVERSION}/nzbhydra2-${HYDRAVERSION}-linux.zip \
+    && unzip nzbhydra2-${HYDRAVERSION}-linux.zip -d /nzbhydra \
+    && chown ${USERID}:${USERID} /nzbhydra -R \
+    && chmod a+x /nzbhydra/nzbhydra2 \
+    && rm nzbhydra2-${HYDRAVERSION}-linux.zip
+
+RUN mkdir /data && chown ${USERID}:${USERID} /data -R
+VOLUME /data
 
 USER nzbhydra
-
-ENTRYPOINT ["/usr/bin/python2", "/nzbhydra/nzbhydra.py", "--nobrowser"]
+ENTRYPOINT ["/usr/bin/java", "-jar", "/nzbhydra/lib/core-2.1.5-exec.jar", "directstart", "--nobrowser"]
