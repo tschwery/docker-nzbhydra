@@ -5,7 +5,7 @@ MAINTAINER Thomas Schwery <thomas@inf3.ch>
 RUN apk add --no-cache --virtual .fetch-deps \
         unzip curl openjdk8
 
-ENV HYDRAVERSION 2.1.6
+ENV HYDRAVERSION 2.2.0
 
 ENV USERID 1000
 ENV USERNAME nzbhydra
@@ -23,4 +23,4 @@ RUN mkdir /data && chown ${USERID}:${USERID} /data -R
 VOLUME /data
 
 USER nzbhydra
-ENTRYPOINT ["/usr/bin/java", "-jar", "/nzbhydra/lib/core-2.1.6-exec.jar", "directstart", "--nobrowser"]
+ENTRYPOINT ["/usr/bin/java", "-jar", "/nzbhydra/lib/core-2.2.0-exec.jar", "directstart", "--nobrowser"]
