@@ -1,11 +1,11 @@
-FROM alpine
+FROM alpine:3.11
 MAINTAINER Thomas Schwery <thomas@inf3.ch>
 
 ## Update base image and install prerequisites
 RUN apk add --no-cache --virtual .fetch-deps \
         unzip curl openjdk8
 
-ENV HYDRAVERSION 2.11.2
+ENV HYDRAVERSION 2.14.2
 
 ENV USERID 1000
 ENV USERNAME nzbhydra
@@ -23,4 +23,4 @@ RUN mkdir /data && chown ${USERID}:${USERID} /data -R
 VOLUME /data
 
 USER nzbhydra
-ENTRYPOINT ["/usr/bin/java", "-jar", "/nzbhydra/lib/core-2.11.2-exec.jar", "directstart", "--nobrowser"]
+ENTRYPOINT ["/usr/bin/java", "-jar", "/nzbhydra/lib/core-2.14.2-exec.jar", "directstart", "--nobrowser"]
